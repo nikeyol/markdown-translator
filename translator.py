@@ -149,26 +149,23 @@ def translator(argv):
     toLang = 'zh'
 
     try:
-        opts, args = getopt.getopt(argv, "hi:o:", ["ipath=", "opath="])
+        opts, args = getopt.getopt(argv, "hi:o:fr:to", ["ipath=", "opath=", "fromLang=", "toLang="])
     except getopt.GetoptError:
-        print("translator.py -i <ipath> -o <opath>")
+        print("translator.py -i <ipath> -o <opath> -f <fromLang> -t toLang")
         sys.exit(2)
     for opt, arg in opts:
         if opt == '-h':
-            print("translator.py -i <ipath> -o <opath> -o <opath>")
+            print("translator.py -i <ipath> -o <opath> -fr <fromLang> -to toLang")
             sys.exit()
         elif opt in ("-i", "--ipath"):
             input = argv[1]
-            print("input path is ", input)
 
         elif opt in ("-o", "--opath"):
             output = argv[3]
-            print("output path is ", output)
-        # elif opt in ("-fr", "--fromLang"):
-        #       fromLang = argv
-        # elif opt in ("-to", "--toLang"):
-        #       toLang = argv
-    print("args are: ", input, output, fromLang, toLang)
+        elif opt in ("-fr", "--fromLang"):
+            fromLang = argv[5]
+        elif opt in ("-to", "--toLang"):
+            toLang = argv[7]
 
     baiduapi_translate(input, output, fromLang, toLang)
 
