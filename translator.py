@@ -142,30 +142,29 @@ def baiduapi_translate(source_dir, dest_dir, fromLang, toLang):
                 outfile.close()
 
 
-def translator(argv):
+def translator(args):
     input = ''
     output = ''
     fromLang = 'en'
-    toLang = 'zh'
+    toLang = 'jp'
 
     try:
-        opts, args = getopt.getopt(argv, "hi:o:f:t", ["ipath=", "opath=", "fromLang=", "toLang="])
+        opts, args = getopt.getopt(sys.argv[1:], "hi:o:f:t:x",
+                                   ["help", "--input", "--output", "--from", "--to"])
     except getopt.GetoptError:
-        print("translator.py -i <ipath> -o <opath> -f <fromLang> -t toLang")
+        print("translator.py -i <input> -o <output> -f <from> -t <to>")
         sys.exit(2)
-    for opt, arg in opts:
-        if opt == '-h':
-            print("translator.py -i <ipath> -o <opath> -fr <fromLang> -to toLang")
-            sys.exit()
-        elif opt in ("-i", "--ipath"):
-            input = argv[1]
-
-        elif opt in ("-o", "--opath"):
-            output = argv[3]
-        elif opt in ("-f", "--fromLang"):
-            fromLang = argv[5]
-        elif opt in ("-t", "--toLang"):
-            toLang = argv[7]
+    for op, value in opts:
+        if op in ("-h", "--help"):
+            print("translator.py -i <input> -o <output> -f <from> -t <to>")
+        elif op in ("-i", "--input"):
+            input = value
+        elif op in ("-o", "--output"):
+            output = value
+        elif op in ("-f", "--from"):
+            fromLang = value
+        elif op in ("-t", "--to"):
+            toLang = value
 
     baiduapi_translate(input, output, fromLang, toLang)
 
